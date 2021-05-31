@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!--  This file has been downloaded from bootdey.com    @bootdey on twitter -->
+    <!--  All snippets are MIT license http://bootdey.com/license -->
+    <title>notes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+    	body{
+
+   background: -webkit-linear-gradient(left, rgba(0,168,255,0.5), rgba(185,0,255,0.5));
+    margin-top:20px;
+}
+.card-box {
+    padding: 30px;
+    display:flex;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    background-color: #fff;
+}
+
+.social-links li a {
+    border-radius: 50%;
+    color: rgba(121, 121, 121, .8);
+    display: inline-block;
+    height: 30px;
+    line-height: 27px;
+    border: 2px solid rgba(121, 121, 121, .5);
+    text-align: center;
+    width: 30px
+}
+
+.social-links li a:hover {
+    color: #797979;
+    border: 2px solid #797979
+}
+.thumb-lg {
+    height: 88px;
+    width: 88px;
+}
+.img-thumbnail {
+    padding: .25rem;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: .25rem;
+    max-width: 100%;
+    height: auto;
+}
+.text-pink {
+    color: #ff679b!important;
+}
+.btn-rounded {
+    border-radius: 2em;
+}
+.text-muted {
+    color: #98a6ad!important;
+}
+h4 {
+    line-height: 22px;
+    font-size: 18px;
+}
+    </style>
+</head>
+<body>
+    {{>header}}
+    <div class="header">
+	<a href="/profile" class="logo">SELF SKY</a>
+	<div class="header-right">
+		<a class="active" href="/addnote">Add Note</a>
+        <a href="/profile">profile</a>
+	</div>
+	</div>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="content">
+    <div class="container">
+        
+        <!-- end row -->
+        <div class="row" id="jay">
+
+            {{!-- <div class="col-lg-4">
+                <div class="text-c  enter card-box">
+                    <div class="member-card pt-2 pb-2">
+                        <div class="">
+                            <h2>Freddie J. Plourde</h2>
+                            <p class="text-muted">date <span>| </span><span><a href="#" class="text-pink">20/2/201</a></span></p>
+                            <p class="text-muted">bdsmad bmanbds amnd asjhd an xmn zcxcjha sjc an cjas jjsabdnmbasjdasjkdjkasa jdknsnkjsahdjkasj xmn cmanhsdgjhas</p>
+                        </div>
+                        <a href="" style="color: black;">edit</a><br>
+                        <a href="" style="color:red;">delete</a>
+                    </div>
+                </div>
+            </div> --}}
+
+            
+            
+        </div>
+    </div>
+</div>
+
+<script>
+    async function load(){
+          const response = await fetch("http://localhost:3000/apinote");
+          var data = await response.json();
+          var id,title,date,description,string="";
+          for(var i=0;i<data.length;i++){
+              id=data[i]._id
+              title=data[i].title
+              date=data[i].date
+              description=data[i].description
+              console.log(description)
+
+              var string1="<div class='col-lg-4'>"+
+                "<div class='text-c  enter card-box'>"+
+                    "<div class='member-card pt-2 pb-2'>"+
+                        "<div class=''>"+
+                            "<h2>"+title+"</h2>"+
+                            "<p class='text-muted'>date <span>| </span><span><a href='#' class='text-pink'>"+date+"</a></span></p>"+
+                             "<p class='text-muted'>NOTE <span>| </span><span><a href='#' class='text-pink'>"+description+"</a></span></p>"+
+                        "</div>"+
+                        "<a href='/updatenote/"+id+"'style='color: black;'>edit</a><br>"+
+                        "<a href='/deletenote/"+id+"'style='color:red;'>delete</a>"+
+                    "</div></div></div>";
+                string=string+string1
+          }
+          document.getElementById('jay').innerHTML=string
+    }
+    load()
+
+</script>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	
+</script>
+</body>
+</html>

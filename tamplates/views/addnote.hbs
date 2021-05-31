@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Contact V1</title>
+	<title>ADD NOTE</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
@@ -22,14 +22,20 @@
 <!--===============================================================================================-->
 </head>
 <body>
-
+	{{>header}}
+	<div class="header">
+	<a href="/profile" class="logo">SELF SKY</a>
+	<div class="header-right">
+		<a class="active" href="/profile">profile</a>
+	</div>
+	</div>
 	<div class="contact1">
 		<div class="container-contact1">
 			<div class="contact1-pic js-tilt" data-tilt>
 				<img src="images/20.png" alt="IMG">
 			</div>
 
-			<form class="contact1-form validate-form">
+			<form class="contact1-form validate-form" action="/noteadd" method="POST">
 				<span class="contact1-form-title">
 					ADD Note
 				</span>
@@ -45,7 +51,7 @@
 				</div>
 
 				<div class="wrap-input1 validate-input" data-validate = "Description is required">
-					<textarea class="input1" name="Description" placeholder="Description"></textarea>
+					<textarea class="input1" name="description" placeholder="Description"></textarea>
 					<span class="shadow-input1"></span>
 				</div>
 

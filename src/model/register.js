@@ -17,7 +17,7 @@ const register=new mongoose.Schema({
             require:true,
     },
     number:{
-        type:Number,
+        type:String,
         require:true,
         unique:[true,'number is already taken']
     },

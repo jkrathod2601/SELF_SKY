@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!--  This file has been downloaded from bootdey.com    @bootdey on twitter -->
+    <!--  All snippets are MIT license http://bootdey.com/license -->
+    <title>peoples</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+    	body{
+    background: -webkit-linear-gradient(left, rgba(0,168,255,0.5), rgba(185,0,255,0.5));
+    margin-top:20px;
+}
+.card-box {
+    display: inline-flexbox;
+    padding: 50px;
+    border-radius: 40px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    background-color: #fff;
+}
+
+.social-links li a {
+    border-radius: 50%;
+    color: rgba(121, 121, 121, .8);
+    display: inline-block;
+    height: 30px;
+    line-height: 27px;
+    border: 2px solid rgba(121, 121, 121, .5);
+    text-align: center;
+    width: 30px
+}
+
+.social-links li a:hover {
+    text-decoration: none;
+    color: #797979;
+    border: 2px solid #797979
+}
+.thumb-lg {
+    height: 88px;
+    width: 88px;
+}
+.img-thumbnail {
+    padding: .25rem;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: .25rem;
+    max-width: 100%;
+    height: auto;
+}
+.text-pink {
+    color: #ff679b!important;
+}
+.btn-rounded {
+    border-radius: 1em;
+}
+.text-muted {
+    color: #98a6ad!important;
+}
+h4 {
+    line-height: 22px;
+    font-size: 18px;
+}
+    </style>
+</head>
+<body onload="load()">
+    {{>header}}
+    <div class="header">
+	<a href="/profile" class="logo">SELF SKY</a>
+	<div class="header-right">
+		<a class="active" href="/addaboutp">Add people</a>
+        <a href="/profile">profile</a>
+	</div>
+	</div>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="content">
+    <div class="container">
+       
+        <!-- end row -->
+        <div class="row" id="get">
+
+           
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    async function load(){
+        const response = await fetch("http://localhost:3000/abpapi");
+        var data = await response.json();
+        console.log(data)
+        var name,email,github,instagram,phone,twitter,string="",address,id;
+        for(var i=0;i<data.length;i++){
+            name=data[i].name
+            email=data[i].email
+            github=data[i].github
+            twitter=data[i].twitter
+            instagram=data[i].instagram
+            phone=data[i].phone
+            address=data[i].address
+            id=data[i]._id
+
+
+            var string1="<div class='col-lg-4'>"+
+                "<div class='text-center card-box'>"+
+                    "<div class='member-card pt-2 pb-2'>"+
+                        "<div class='thumb-lg member-thumb mx-auto'><img src='https://bootdey.com/img/Content/avatar/avatar2.png' class='rounded-circle img-thumbnail' alt='profile-image'></div>"+
+                        "<div class=''>"+
+                            "<h4>"+name+"</h4>"+
+                            "<p class='text-muted'>@email<span>| </span><span><a href='mailto:"+email+"' class='text-pink'>"+email+"</a></span></p>"+
+                             "<p class='text-muted'>@phone<span>| </span><span><a href='tel:"+phone+"' class='text-pink'>"+phone+"</a></span></p>"+
+                              "<p class='text-muted'>@twitter<span>| </span><span><a href='https://twitter.com/"+twitter+"' class='text-pink'>"+twitter+"</a></span></p>"+
+                               "<p class='text-muted'>@instagram<span>| </span><span><a href='https://www.instagram.com/"+instagram+"/' class='text-pink'>"+instagram+"</a></span></p>"+
+                                "<p class='text-muted'>@github<span>| </span><span><a href='https://github.com/"+github+"' class='text-pink'>"+github+"</a></span></p>"+
+                                "<p class='text-muted'>@address<span>| </span><span><a href='#' class='text-pink'>"+address+"</a></span></p>"+
+                        "</div>"+
+                        "<ul class='social-links list-inline'>"+
+                            "<li class='list-inline-item'><a title='' data-placement='top' data-toggle='tooltip' class='tooltips' href='https://www.instagram.com/"+instagram+"' data-original-title='instagram'><i class='fa fa-instagram'></i></a></li>"+
+                            "<li class='list-inline-item'><a title='' data-placement='top' data-toggle='tooltip' class='tooltips' href='https://twitter.com/"+twitter+"' data-original-title='Twitter'><i class='fa fa-twitter'></i></a></li>"+
+                            "<li class='list-inline-item'><a title='' data-placement='top' data-toggle='tooltip' class='tooltips' href='https://api.whatsapp.com/send?phone=+"+phone+"&amp;text=Hey ,I am' data-original-title='whatsapp'><i class='fa fa-whatsapp'></i></a></li>"+
+                            "<li class='list-inline-item'><a title='' data-placement='top' data-toggle='tooltip' class='tooltips' href='https://github.com/"+github+"' data-original-title='github'><i class='fa fa-github'></i></a></li>"+
+                        "</ul>"+
+                        "<div class='mt-4'>"+
+                            "<a href='/updatepeople/"+id+"'>edit</a><br>"+
+                            "<a href='/deleteabp/"+id+"'style='color: red;'>delet</a>"+
+                        "</div></div></div></div>";
+            console.log(string1)
+            string=string+string1
+        }
+        document.getElementById('get').innerHTML=string
+    }
+    
+
+</script>
+
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	
+</script>
+</body>
+</html>
