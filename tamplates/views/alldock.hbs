@@ -5,6 +5,7 @@
     <!--  This file has been downloaded from bootdey.com    @bootdey on twitter -->
     <!--  All snippets are MIT license http://bootdey.com/license -->
     <title>Documents</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="http://netdna.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
@@ -123,14 +124,14 @@ h4 {
                         "</div>"+
                         "<br><br>"+
                         "<a href='/updatedock/"+id+"'style='color: black;'>edit</a><br>"+
-                        "<a href='/deletedock/"+id+"'style='color:red;'>delete</a>"+
+                        "<a href='/deletedock/"+id+"'style='color:red;'>delete</a><br>"+
                     "</div></div></div>";
             string=string+string1
+            console.log(string1)
         }
     document.getElementById('jay').innerHTML=string
     }
-    load()
-
+    load();
 </script>
 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

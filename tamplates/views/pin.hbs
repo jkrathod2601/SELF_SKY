@@ -97,10 +97,12 @@ body.my-login-page {
 					</div>
 					<div class="card fat">
 						<div class="card-body">
-							<h4 class="card-title">SET YOUR SECURITY PIN</h4>
+							<h4 class="card-title">INSERT YOUR SECURITY PIN</h4>
 							<form method="POST" class="my-login-validation" novalidate="" action="/setpin">
 								<div class="form-group">
-									<label for="email">E-Mail Address</label>
+									<label for="email">ENTER YOUR SECURITY PIN<br>
+									when you register with us,that time we sent you an pin
+									</label>
 									<input id="pin" type="text" class="form-control" name="pin" value="" required autofocus>
 									<div class="invalid-feedback">
 										pin is invalid
@@ -108,6 +110,7 @@ body.my-login-page {
 									<div class="form-text text-muted">
 										By clicking submit Pin your data is showing to you if your pin is correct
 									</div>
+									<P style="color: red;">{{error}}</P>
 								</div>
 
 								<div class="form-group m-0">
@@ -119,7 +122,7 @@ body.my-login-page {
 						</div>
 					</div>
 					<div class="footer">
-						Copyright &copy; 2017 &mdash; Your Company 
+						Copyright &copy; 2021 &mdash; JAY RATHOD 
 					</div>
 				</div>
 			</div>

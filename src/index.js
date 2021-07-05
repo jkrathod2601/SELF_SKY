@@ -39,7 +39,12 @@ var pin1;
 
 
 
-
+app.get("/start",async(req,res)=>{
+    const user=await registeruser.count()
+    res.render('start',{
+        countuser:user
+    })
+})
 app.get("/",(req,res)=>{
     res.render('index')
 })
@@ -133,7 +138,7 @@ app.post("/register",async(req,res)=>{
             from: 'jkrathod2601@gmail.com', // Sender address
             to: req.body.email,         // List of recipients
             subject: "your all time security pin is", // Subject line
-            text: 'your pin is  '+ pin// Plain text body
+            html:'<h3>Your Pin is</h3><h1>'+pin+'</h1>'// Plain text body
         };
         await transport.sendMail(message, function(err, info) {
             if (err) {
@@ -144,7 +149,9 @@ app.post("/register",async(req,res)=>{
         });
         res.redirect('/profile')
     }catch(err){
-        res.render('register.hbs')
+        res.render('register.hbs',{
+            error:"email is allready taken"
+        })
         console.log(chalk.red(err))
     }
 })
@@ -153,17 +160,25 @@ app.post("/register",async(req,res)=>{
 app.post("/logincheak",async(req,res)=>{
     try{
     //    pin1="BSG2F"
+    var error1,error2=""
     const data=await registeruser.find({email:req.body.email})
+    
     if(data[0].password==md5(req.body.password)){
         email=req.body.email
         access=true;
         res.render('pin')
         }
         else{
-            res.redirect('/')
+            res.render('index',{
+                errorr1:error1,
+                error2:'password does not match with email'
+            })
         }
     }catch(err){
-        res.redirect('/')
+        res.render('index',{
+            error1:'email is not found in database',
+            error2:error2
+        })
         console.log(chalk.red(err))
     }
 })
@@ -203,7 +218,7 @@ app.post("/forgotpass.hbs",async(req,res)=>{
                 from: 'jkrathod2601@gmail.com', // Sender address
                 to: req.body.email,         // List of recipients
                 subject: "your password is", // Subject line
-                text: 'your new password is  '+randome // Plain text body
+                html: '<h3>your new password is </h3><br><h1>'+randome+'<h1>' // Plain text body
             };
             transport.sendMail(message, function(err, info) {
                 if (err) {
@@ -215,12 +230,16 @@ app.post("/forgotpass.hbs",async(req,res)=>{
             res.render('index')
             console.log(true)
         }else{
-            res.redirect('/forgot.hbs')
+            res.render('forgot.hbs',{
+                error:'your email is not found in database'
+            })
             console.log(false)
         }
     }
     catch(err){
-        res.redirect('/forgot.hbs')
+        res.render('forgot.hbs',{
+            error:'your email is not found in database'
+        })
         console.log(err)
     }
 })
@@ -479,6 +498,7 @@ app.get('/apinote',async(req,res)=>{
         var description=await cryptr.decrypt(data[i].description)
         var date=await (data[i].date)
         var _id=await data[i]._id
+        console.log(description)
         var string='{"_id":"'+_id+'","title":"'+title+'","date":"'+date+'","description":"'+description+'"},'
         string1=string1+string
     }
@@ -615,7 +635,7 @@ app.get("/deletedock/:id",async(req,res)=>{
     }
     catch(err){
         console.log(chalk.red(err))
-        res.redirect('/allnote')
+        res.redirect('/alldock')
     }
 })
 //update dock form
@@ -624,6 +644,7 @@ app.get('/updatedock/:id',async(req,res)=>{
         if(access==true){
             var cryptr=new Cryptr(pin1)
             const id=req.params.id
+            console.log(id)
             const data=await adddocument.find({_id:id})
             //console.log(data[0].address)
             res.render('updatedock',{
@@ -773,19 +794,43 @@ app.post('/updatepassform/:id',async(req,res)=>{
 
 app.get('/deleteaccout',async(req,res)=>{
     try{
+            const result2=await noteadd.deleteMany({email:email})
+            const result3=await adddocument.deleteMany({email:email})
+            const result4=await addpass.deleteMany({addemail:email})
+            const result5=await addpop.deleteMany({addemail:email})
+            console.log('datadeleted succesfully')
+    console.log('deleation sucessfull')
+    // console.log(result)
+    res.redirect('/profile')
+    }catch(err){
+        res.redirect('/profile')
+        console.log(err)
+    } 
+})
+
+
+app.get('/deletedatawithaccount',async(req,res)=>{
+    try{    
+        if(access==true){
          const result=await registeruser.find({email:email})
          const id=result[0]._id
          const result1=await registeruser.findByIdAndDelete({_id:id})
-         const result2=await noteadd.deleteMany({email:email})
-         const result3=await adddocument.deleteMany({email:email})
-         const result4=await addpass.deleteMany({addemail:email})
-         const result5=await addpop.deleteMany({addemail:email})
-    console.log('deleation sucessfull')
-    console.log(result)
-    res.redirect('/')
+         const result22=await noteadd.deleteMany({email:email})
+         const result32=await adddocument.deleteMany({email:email})
+         const result42=await addpass.deleteMany({addemail:email})
+         const result52=await addpop.deleteMany({addemail:email})
+            
+            res.redirect('/')
+        }
+        else{
+            res.redirect('/')
+        }
+        
     }catch(err){
-        console.log(err)
-    } 
+        console.log(chalk.red('some error throw out deleteaccountdata'+err))
+        res.redirect('/profile')
+        
+    }
 })
 
 
