@@ -131,7 +131,7 @@ app.post("/register",async(req,res)=>{
             service: 'gmail',
             auth: {
                user:'jkrathod2601@gmail.com',
-               pass:'RJ@$BORN@$2601'
+               pass:'*******'
             }
         });
         const message = {
@@ -200,7 +200,7 @@ app.post("/forgotpass.hbs",async(req,res)=>{
             service: 'gmail',
             auth: {
                user:'jkrathod2601@gmail.com',
-               pass:'RJ@$BORN@$2601'
+               pass:'********'
             }
         });
         const result = await registeruser.find({email:req.body.email})
